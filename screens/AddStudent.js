@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert, ScrollView } from 'react-native';
 import axios from 'axios';
 
-// IMPORTANT: Use 10.0.2.2 for Android Emulator, or your local IP for physical devices.
-const API_URL = 'http://10.0.2.2:8000/api/students/';
 
 const AddStudent = ({ navigation }) => {
   const [studentId, setStudentId] = useState('');
@@ -12,7 +10,6 @@ const AddStudent = ({ navigation }) => {
   const [yearLevel, setYearLevel] = useState('');
 
   const handleSubmit = async () => {
-    // Simple validation
     if (!studentId || !fullName || !course || !yearLevel) {
         Alert.alert('Error', 'Please fill in all fields.');
         return;
@@ -26,9 +23,9 @@ const AddStudent = ({ navigation }) => {
     };
 
     try {
-      const response = await axios.post(API_URL, newStudent);
+      const response = await axios.post('http://127.0.0.1:8000/api/students/', newStudent);
       
-      Alert.alert('Success', 'Student added successfully!', [
+      window.alert('Success', 'Student added successfully!', [
         { 
             text: 'OK', 
             onPress: () => {
@@ -39,7 +36,7 @@ const AddStudent = ({ navigation }) => {
       ]);
     } catch (error) {
       console.error("Error adding student:", error.response ? error.response.data : error.message);
-      Alert.alert('Error', 'Failed to add student. Check console for details (e.g., ID not unique).');
+      window.alert('Error', 'Failed to add student. Check console for details (e.g., ID not unique).');
     }
   };
 

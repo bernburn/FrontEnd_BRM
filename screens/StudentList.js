@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, StyleSheet, ActivityIndicator } from 'react-native';
 import axios from 'axios';
 
-const API_URL = 'http://127.0.0.1:8000/api/students/'; 
-
 const StudentList = () => {
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -11,7 +9,7 @@ const StudentList = () => {
   useEffect(() => {
     const fetchStudents = async () => {
         try {
-            const response = await axios.get(API_URL);
+            const response = await axios.get('http://127.0.0.1:8000/api/students/');
             setStudents(response.data);
         } catch (error) {
             console.error("Error fetching students:", error);
